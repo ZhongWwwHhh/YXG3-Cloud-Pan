@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+</head>
+
+<body>
+    <div class="backgroundImage" id="backgroundImage">
+        <video class="video" loop muted autoplay src="/image/backgroundVideo.mp4"></video>
+    </div>
+
+    <div class="box">
+        <h2>Login</h2>
+        <form action="/php/login.php" method="post">
+            <div class="inputbox">
+                <input required type="text" name="uid" id="uid">
+                <label for="uid">UID</label>
+            </div>
+            <input type="submit" value="登录">
+        </form>
+    </div>
+</body>
+
+</html>
