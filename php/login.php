@@ -35,6 +35,8 @@ if (!$conn) {
         header("Location:/html/login.html");
     }
 }
+mysqli_free_result($check_query);
+mysqli_close($conn);
 ?>
 
 <!DOCTYPE html>
