@@ -26,9 +26,9 @@ body {
     /*实现块元素百分比下居中*/
     width: 450px;
     padding: 50px;
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, .5);
     box-sizing: border-box;
-    box-shadow: 0px 15px 25px rgba(0, 0, 0, .5);
+    box-shadow: 0px 15px 25px rgba(0, 0, 0, .3);
     border-radius: 15px;
 }
 
