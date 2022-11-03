@@ -1,13 +1,13 @@
 <?php
-$uid = $_POST["uid"];
+$loginname = $_POST["loginname"];
 
 // unexpected uid
-if ($uid == null) {
-    header("Location:420.html");
+if ($loginname == null) {
+    header("Location:/html/login.html");
 }
 
 // information for mysql
-$host = 'localhost';
+$host = '127.0.0.1';
 $db_username = 'mysql';
 $db_pwd = 'mysql';
 $db_name = 'yxg3pan';
@@ -15,10 +15,11 @@ $db_name = 'yxg3pan';
 $conn = mysqli_connect($host, $db_username, $db_pwd, $db_name);
 
 if (!$conn) {
-    header("Location:500.html");
+    // server error
+    header("Location:/500.html");
 } else {
     // connect mysql success
-    $check_query = mysqli_query($conn, "select id from user where lightname='$uid'");
+    $check_query = mysqli_query($conn, "select filepath from user where lightname='$loginname'");
     $arr = mysqli_fetch_assoc($check_query);
 
     if ($arr) {
@@ -28,8 +29,10 @@ if (!$conn) {
         $time = 120; // 2 minute timeout
         // set cookie
         setcookie(session_name(), session_id(), time() + $time, "/");
+        $_SESSION['lightname'] = $loginname;
+        $_SESSION['filepath'] = $arr['filepath'];
         // redirect
-        header("Location:/html/file.html");
+        header("Location:/php/file.php");
     } else {
         // login fail no user
         header("Location:/html/login.html");

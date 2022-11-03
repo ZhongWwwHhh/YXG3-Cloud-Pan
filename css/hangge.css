@@ -1,0 +1,192 @@
+article, aside, figure, figcaption, footer, header, hgroup, nav, section, summary {  
+    display: block;  
+  }
+   
+  *{
+     margin: 0px;
+     padding: 0px;
+  }
+   
+  body {
+    width: 100%;
+    height: auto;
+    font-size: medium;
+    font-family: "Helvetica","Hiragino Sans GB","Microsoft Yahei", sans-serif;
+  }
+   
+  a {
+      color: #999;
+      text-decoration: none;
+      cursor: pointer
+  }
+   
+  a:hover {
+      color: #5188a6;
+      text-decoration: none
+  }
+   
+  #wrapper {
+      width: 100%;
+  }
+  
+  #nav {
+      display: inline-block;
+      float: right;
+      font-size: 1.25em;
+      margin-top: 5px;
+      margin-right: 10px;
+    }
+   
+  header.SiteHeader {
+    height: 40px;
+    padding: 10px;
+    background: #000000; 
+  }
+   
+  aside.NavSidebar
+  { 
+    padding: 5px 15px 5px 15px;
+    width: 12%;
+    height: 660px;
+    background-color:#f9f9f9;
+    font-size: small;
+    float:left;
+  }
+   
+  aside.NavSidebar h2 {
+    color: #6B6E3F;
+    border-bottom: thin #6B6E3F solid;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+   
+  aside.NavSidebar ul {
+    padding-left: 15px;
+  }
+   
+  aside.NavSidebar li {
+    padding-bottom: 8px;
+  }
+   
+  aside.NavSidebar img {
+    margin-top: 20px;
+    border: white solid 4px;
+  }
+   
+  .Content {
+    padding: 20px;
+    margin-left:233px;
+  }
+   
+  .Content .LeadIn {
+    font-weight: bold;
+    font-size: large;
+    font-variant: small-caps;
+  }
+   
+  .Content h3 {
+    color: #24486C;
+    margin-bottom: 2px;
+    font-size: medium;
+  }
+   
+  .Content p {
+    margin-top: 0px;
+  }
+   
+  
+  
+  header.ArticleHeader {
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+  }
+  
+  header.inner {
+      max-width: 65em;
+      width: calc(100% - 6em);
+      margin: 0 auto;
+    }
+   
+  .logo {
+        font-family: 'Pacifico', cursive;
+        display: inline-block;
+        height: inherit;
+        left: 10px;
+        line-height: inherit;
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        top: 10px;
+        color: #DDDDDD;
+        font-size: 1.75em;
+        text-transform: none;
+        font-weight: normal;
+        padding: 0;
+      }
+  
+  header.ArticleHeader h2 { 
+    font-size: xx-large;
+  }
+   
+  header.ArticleHeader h3 {
+    margin-top: 8px;
+    font-weight: bold;
+  }
+   
+  header.ArticleHeader .Byline {
+    margin-top: 8px;
+    font-style: italic;
+    font-size: small;
+  }
+   
+  footer {
+    height: 50px;
+    background: #333333;
+    color:#c0c0c0;
+    padding: 10px;
+    text-align: center;
+    font-size: x-small;  
+    clear:both;
+  }
+   
+  footer .Disclaimer {
+    font-style: italic;
+  }
+   
+  footer p {
+    margin: 3px;
+  }
+  
+  #filelist{
+    float:right; 
+    width: 20%;
+    margin-right: 25%;
+    height:auto;
+  }
+  
+  #file{
+  
+    float:left; 
+    width: 30%;
+    margin-left:15%;
+    height: auto;
+  }
+  .button_css{
+      margin-top: 5px;
+      float: right;
+      background-color: #3300FF;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      border-radius: 15px;
+  }
+  
+  #test1,#test2,#test3{
+    font-size: 16px;
+    text-align: center;
+  }
