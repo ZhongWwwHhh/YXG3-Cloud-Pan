@@ -13,7 +13,7 @@
     $tmp = $_FILES['myFile']['tmp_name'];
 	$error=$_FILES['myFile']['error'];
 		
-   move_uploaded_file($tmp,"../file/$filepath/".iconv("UTF-8", "gbk",$imgname));
+   move_uploaded_file($tmp,"../file/$filepath/".$imgname);
  
    if ($error==0) {
   			
