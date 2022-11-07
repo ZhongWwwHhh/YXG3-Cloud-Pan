@@ -18,7 +18,7 @@ $filepath = $_SESSION['filepath'];
 
 <head>
     <meta charset="utf-8">
-    <title>轻量云主页</title>
+    <title>Your Files</title>
     <link rel="stylesheet" href="/css/hangge.css">
 </head>
 
