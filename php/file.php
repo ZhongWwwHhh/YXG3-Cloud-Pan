@@ -60,7 +60,7 @@ $filepath = $_SESSION['filepath'];
                     <h2>&nbsp;&nbsp;文件上传</h2>
 
                     <form action="upload_file.php" method="post" enctype="multipart/form-data">
-                        <input type="file" name="myFile" id="test3" style="width: 100%;height: 30px; border-radius: 10px; webkit-box-shadow: 0 0 5px rgba(0,113,241,1);" /><br />
+                        <input type="file" name="myFile" id="test3" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" /><br />
                         <input type="submit" value="上传" class="button_css" />
                     </form>
 
@@ -71,7 +71,7 @@ $filepath = $_SESSION['filepath'];
                     <h2>&nbsp;&nbsp;文件删除</h2>
 
                     <form action="delete_file.php" method="post">
-                        <input id="test1" name="filename" type="text" readonly="readonly" style="width: 100%; height: 30px; border-radius: 10px; webkit-box-shadow: 0 0 5px rgba(255,113,241,1);" value="" placeholder="请在右侧选择文件" />
+                        <input id="test1" name="filename" type="text" readonly="readonly" style="width: 100%; height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(255,113,241,1);" value="" placeholder="请在右侧选择文件" />
                         <input type="submit" value="点击删除" class="button_css" />
                     </form>
 
@@ -83,7 +83,7 @@ $filepath = $_SESSION['filepath'];
                     <h2>&nbsp;&nbsp;文件下载</h2>
 
                     <form action="download_file.php" method="get">
-                        <input id="test2" name="filename" type="text" readonly="readonly" style="width: 100%;height: 30px; border-radius: 10px; webkit-box-shadow: 0 0 5px rgba(0,113,241,1);" value="" placeholder="请在右侧选择文件" />
+                        <input id="test2" name="filename" type="text" readonly="readonly" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" value="" placeholder="请在右侧选择文件" />
                         <input type="submit" value="点击下载" class="button_css" />
                     </form>
 
