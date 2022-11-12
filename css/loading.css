@@ -11,7 +11,7 @@
     height: 100%;
     margin-right: 5px;
     border-radius: 50%;
-    background: lightgreen;
+    background: rgb(0, 200, 255);
     -webkit-animation: load 1.04s ease infinite;
     animation: load 1.04s ease infinite;
 }

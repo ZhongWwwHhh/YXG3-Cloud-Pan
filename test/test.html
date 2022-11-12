@@ -7,54 +7,6 @@
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title>Choosing Server</title>
     <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
-    <script>
-        var localfail = false, afail = false, bfail = false;
-        window.alert("所有服务器无法连接,3s后重试www");
-        axios.get('http://10.160.130.46/index.html')
-            .then(function (response) {
-                // handle success
-                console.log(response);
-                window.location.replace("http://10.160.130.46/");
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-                localfail = true;
-                if (bfail == true && afail == true) {
-                    window.alert("所有公网服务器无法连接,3s后重试");
-                }
-            })
-
-        axios.get('https://b.yxg3.xyz/index.html')
-            .then(function (response) {
-                // handle success
-                console.log(response);
-                window.location.replace("https://b.yxg3.xyz/");
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-                bfail = true;
-                if (bfail == true && afail == true) {
-                    window.alert("所有公网服务器无法连接,3s后重试");
-                }
-            })
-
-        axios.get('https://a.yxg3.xyz/index.html')
-            .then(function (response) {
-                // handle success
-                console.log(response);
-                window.location.replace("https://a.yxg3.xyz/");
-            })
-            .catch(function (error) {
-                // handle error
-                console.log(error);
-                afail = true;
-                if (bfail == true && afail == true) {
-                    window.alert("所有公网服务器无法连接,3s后重试");
-                }
-            })
-    </script>
     <style>
         .loadingThree {
             width: 165px;
@@ -69,7 +21,7 @@
             height: 100%;
             margin-right: 5px;
             border-radius: 50%;
-            background: lightgreen;
+            background: rgb(0, 200, 255);
             -webkit-animation: load 1.04s ease infinite;
             animation: load 1.04s ease infinite;
         }
@@ -134,5 +86,51 @@
         <span></span>
     </div>
 </body>
+
+<script>
+    var localfail = false, afail = false, bfail = false;
+    axios.get('http://10.160.130.46/index.html')
+        .then(function (response) {
+            // handle success
+            console.log(response);
+            window.location.replace("http://10.160.130.46/");
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+        })
+
+    axios.get('https://b.yxg3.xyz/index.html')
+        .then(function (response) {
+            // handle success
+            console.log(response);
+            window.location.replace("https://b.yxg3.xyz/");
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+            bfail = true;
+            if (bfail == true && afail == true) {
+                window.alert("所有公网服务器无法连接,3s后重试");
+                setTimeout(function () { location.reload() }, 3000);
+            }
+        })
+
+    axios.get('https://a.yxg3.xyz/index.html')
+        .then(function (response) {
+            // handle success
+            console.log(response);
+            window.location.replace("https://a.yxg3.xyz/");
+        })
+        .catch(function (error) {
+            // handle error
+            console.log(error);
+            afail = true;
+            if (bfail == true && afail == true) {
+                window.alert("所有公网服务器无法连接,3s后重试");
+                setTimeout(function () { location.reload() }, 3000);
+            }
+        })
+</script>
 
 </html>
