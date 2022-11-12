@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Access-Control-Allow-Origin" content="*">
     <title>Choosing Server</title>
-    <script src="https://cdn.bootcdn.net/ajax/libs/axios/1.1.3/axios.min.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
     <script>
+        var localfail = false, afail = false, bfail = false;
+        window.alert("所有服务器无法连接,3s后重试www");
         axios.get('http://10.160.130.46/index.html')
             .then(function (response) {
                 // handle success
@@ -17,6 +19,10 @@
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                localfail = true;
+                if (bfail == true && afail == true) {
+                    window.alert("所有公网服务器无法连接,3s后重试");
+                }
             })
 
         axios.get('https://b.yxg3.xyz/index.html')
@@ -28,6 +34,10 @@
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                bfail = true;
+                if (bfail == true && afail == true) {
+                    window.alert("所有公网服务器无法连接,3s后重试");
+                }
             })
 
         axios.get('https://a.yxg3.xyz/index.html')
@@ -39,6 +49,10 @@
             .catch(function (error) {
                 // handle error
                 console.log(error);
+                afail = true;
+                if (bfail == true && afail == true) {
+                    window.alert("所有公网服务器无法连接,3s后重试");
+                }
             })
     </script>
     <style>
