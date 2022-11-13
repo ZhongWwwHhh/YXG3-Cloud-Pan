@@ -7,7 +7,7 @@ if ($loginname == null) {
 }
 
 // information for mysql
-$host = '127.0.0.1';
+$host = 'localhost';
 $db_username = 'pan_user';
 $db_pwd = '5Jmc484C3';
 $db_name = 'pan';
