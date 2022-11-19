@@ -88,18 +88,22 @@
 </body>
 
 <script>
-    var localfail = false, afail = false, bfail = false;
-    axios.get('https://10.160.130.46/index.html')
+    var afail = false, bfail = false, cfail = false;
+    axios.get('https://a.yxg3.xyz:8443/index.html')
         .then(function (response) {
             // handle success
             console.log(response);
-            window.location.replace("http://10.160.130.46/");
+            window.location.replace("https://a.yxg3.xyz:8443/");
         })
         .catch(function (error) {
             // handle error
             console.log(error);
+            afail = true;
+            if (bfail == true && afail == true) {
+                window.alert("所有公网服务器无法连接,3s后重试");
+                setTimeout(function () { location.reload() }, 3000);
+            }
         })
-
     axios.get('https://b.yxg3.xyz/index.html')
         .then(function (response) {
             // handle success
@@ -110,22 +114,6 @@
             // handle error
             console.log(error);
             bfail = true;
-            if (bfail == true && afail == true) {
-                window.alert("所有公网服务器无法连接,3s后重试");
-                setTimeout(function () { location.reload() }, 3000);
-            }
-        })
-
-    axios.get('https://a.yxg3.xyz/index.html')
-        .then(function (response) {
-            // handle success
-            console.log(response);
-            window.location.replace("https://a.yxg3.xyz/");
-        })
-        .catch(function (error) {
-            // handle error
-            console.log(error);
-            afail = true;
             if (bfail == true && afail == true) {
                 window.alert("所有公网服务器无法连接,3s后重试");
                 setTimeout(function () { location.reload() }, 3000);
