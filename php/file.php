@@ -84,6 +84,7 @@ $filepath = $_SESSION['filepath'];
 
                     <form action="download_file.php" method="get">
                         <input id="test2" name="filename" type="text" readonly="readonly" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" value="" placeholder="请在右侧选择文件" />
+                        <input type="hidden" name="filepath" value="<?php echo $filepath ?>" readonly />
                         <input type="submit" value="点击下载" class="button_css" />
                     </form>
 

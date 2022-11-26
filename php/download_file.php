@@ -1,14 +1,7 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['lightname'])) {
-	header("Location:/html/login.html");
-	exit;
-}
-/*******************************************下载*********************************************************/
 header("Content-Type:text/html;charset=utf8");
 
-$filepath = $_SESSION['filepath'];
+$filepath = $_GET['filepath'];
 $file_name = $_GET['filename'];
 
 $download_path = "../file/$filepath/";
@@ -34,5 +27,3 @@ if (!file_exists($download_path . $file_name)) {
 
 	readfile($download_path . $file_name);
 }
-
-/******************************end******************************************/
