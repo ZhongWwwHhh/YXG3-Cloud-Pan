@@ -8,8 +8,8 @@ if ($loginname == null) {
 
 // information for mysql
 $host = 'localhost';
-$db_username = 'pan_user';
-$db_pwd = '5Jmc484C3';
+$db_username = 'pan';
+$db_pwd = 'jA5R2P7fZySfT2Kt';
 $db_name = 'pan';
 // start connect to mysql db
 $conn = mysqli_connect($host, $db_username, $db_pwd, $db_name);
