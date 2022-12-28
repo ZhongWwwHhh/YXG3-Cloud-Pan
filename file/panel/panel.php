@@ -4,7 +4,7 @@ $time = 3600; // time out 1 hour
 setcookie(session_name(), session_id(), time() + $time, "/");
 // not login
 if (!isset($_SESSION['lightname'])) {
-    header("Location:/html/login.html");
+    header('Location:/');
     exit;
 }
 
@@ -19,7 +19,7 @@ $filepath = $_SESSION['filepath'];
 <head>
     <meta charset="utf-8">
     <title>Your Files</title>
-    <link rel="stylesheet" href="/css/hangge.css">
+    <link rel="stylesheet" href="panel.css">
 </head>
 
 <body>
@@ -30,7 +30,7 @@ $filepath = $_SESSION['filepath'];
                 <a href="index.html" class="logo">轻量云网盘</a>
                 <nav id="nav">
                     <a><?php echo $lightname ?> 已登录</a>
-                    <a href="cancellation.php">注销</a>
+                    <a href="/account/quit/quit.php">注销</a>
                 </nav>
             </div>
         </header>
@@ -59,7 +59,7 @@ $filepath = $_SESSION['filepath'];
 
                     <h2>&nbsp;&nbsp;文件上传</h2>
 
-                    <form action="upload_file.php" method="post" enctype="multipart/form-data">
+                    <form action="../operation/upload_file.php" method="post" enctype="multipart/form-data">
                         <input type="file" name="myFile" id="test3" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" /><br />
                         <input type="submit" value="上传" class="button_css" />
                     </form>
@@ -82,7 +82,7 @@ $filepath = $_SESSION['filepath'];
                     <br />
                     <h2>&nbsp;&nbsp;文件下载</h2>
 
-                    <form action="download_file.php" method="get">
+                    <form action="../operation/download_file.php" method="get">
                         <input id="test2" name="filename" type="text" readonly="readonly" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" value="" placeholder="请在右侧选择文件" />
                         <input type="hidden" name="filepath" value="<?php echo $filepath ?>" readonly />
                         <input type="submit" value="点击下载" class="button_css" />
@@ -112,7 +112,7 @@ $filepath = $_SESSION['filepath'];
                         return $arr;
                     }
 
-                    $file = getDirContent("../file/$filepath/");
+                    $file = getDirContent("../../storage/$filepath/");
                     $arrlength = count((array)$file);
                     ?>
                     <ul>

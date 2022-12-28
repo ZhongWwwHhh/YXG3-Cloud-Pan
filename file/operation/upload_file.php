@@ -2,7 +2,7 @@
 	session_start();
 
     if (!isset($_SESSION['lightname'])) {
-        header("Location:/html/login.html");
+        header('Location:/');
         exit;
     }
 
@@ -13,7 +13,7 @@
     $tmp = $_FILES['myFile']['tmp_name'];
 	$error=$_FILES['myFile']['error'];
 		
-   move_uploaded_file($tmp,"../file/$filepath/".$imgname);
+   move_uploaded_file($tmp,"../../storage/$filepath/".$imgname);
  
    if ($error==0) {
   			

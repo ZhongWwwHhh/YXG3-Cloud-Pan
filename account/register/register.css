@@ -27,16 +27,22 @@
 
 .main {
     width: 500px;
-    height: 300px;
     margin: auto;
     font-size: 18px;
 }
 
 .warn {
-    color: rgb(255, 0, 0);
+    color: red;
 }
 
-#lightname, #email, #verifyCode {
+.tip {
+    color: red;
+    font-size: 12px;
+}
+
+#lightname,
+#email,
+#verifyCode {
     width: 492px;
     height: 30px;
     margin-top: 5px;

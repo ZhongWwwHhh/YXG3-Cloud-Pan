@@ -1,64 +1,54 @@
 <?php
 $loginname = $_POST["loginname"];
 
-// unexpected uid
+// no name
 if ($loginname == null) {
     header("Location:/html/login.html");
 }
 
-// information for mysql
-$host = 'localhost';
-$db_username = 'pan';
-$db_pwd = 'jA5R2P7fZySfT2Kt';
-$db_name = 'pan';
-// start connect to mysql db
-$conn = mysqli_connect($host, $db_username, $db_pwd, $db_name);
+// check name
+require_once '../../function/inputcheck.php';
 
-if (!$conn) {
-    // server error
-    header("Location:/500.html");
-} else {
-    // connect mysql success
-    $check_query = mysqli_query($conn, "select filepath from user where lightname='$loginname'");
-    $arr = mysqli_fetch_assoc($check_query);
-
-    if ($arr) {
-        // login success
-        // start session
-        session_start();
-        $time = 120; // 2 minute timeout
-        // set cookie
-        setcookie(session_name(), session_id(), time() + $time, "/");
-        $_SESSION['lightname'] = $loginname;
-        $_SESSION['filepath'] = $arr['filepath'];
-        // redirect
-        header("Location:/php/file.php");
+if (checkStr($loginname) == true) {
+    if (strlen($loginname) == 16) {
+        //uuid
+        require_once '../../function/mysqli.php';
+        $sqlRow = sqliSelect($loginname, 'uuid', 'user');
+        if (sqliNumRow($sqlRow) != 1) {
+            sqliClose();
+            header('location:/');
+            exit;
+        }
+        $userInformation = sqliGetArray($sqlRow);
+        sqliClose();
+        $write = true;
+    } elseif (strlen($loginname) <= 10) {
+        // lightname
+        require_once '../../function/mysqli.php';
+        $sqlRow = sqliSelect($loginname, 'lightname', 'user');
+        if (sqliNumRow($sqlRow) != 1) {
+            sqliClose();
+            header('location:/');
+            exit;
+        }
+        $userInformation = sqliGetArray($sqlRow);
+        sqliClose();
+        $write = false;
     } else {
-        // login fail no user
-        header("Location:/html/login.html");
+        // wrong
+        header('location:/');
+        exit;
     }
+    session_start();
+    $time = 120; // 2 minute timeout
+    // set cookie
+    setcookie(session_name(), session_id(), time() + $time, "/");
+    $_SESSION['lightname'] = $userInformation['lightname'];
+    $_SESSION['filepath'] = $userInformation['filepath'];
+    $_SESSION['write'] = $write;
+    header('location:/file/panel/panel.php');
+    exit;
+} else {
+    header('location:/');
+    exit;
 }
-mysqli_free_result($check_query);
-mysqli_close($conn);
-?>
-
-<!DOCTYPE html>
-<html lang="zh-cn">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Logining</title>
-    <link rel="stylesheet" type="text/css" href="/css/loading.css">
-</head>
-
-<body>
-    <div class="loadingThree">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-</body>
-
-</html>
