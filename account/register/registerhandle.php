@@ -46,9 +46,9 @@ if (time() > $_SESSION['outtime']) {
 $_SESSION['err'] = 0;
 
 if ($_SESSION['step'] == 1) {
-    $newLightName = $_POST["lightname"];
-    $agreeLicense = $_POST["agreeLicense"];
-    $vaptchaToken = $_POST["vaptchaToken"];
+    $newLightName = $_POST['lightname'];
+    $agreeLicense = $_POST['agreeLicense'];
+    $vaptchaToken = $_POST['vaptchaToken'];
     $vaptchaServer = $_POST['vaptchaServer'];
 
     // clean data
@@ -124,26 +124,6 @@ if ($_SESSION['step'] == 1) {
     if ($agreeLicense != 'on') {
         $_SESSION['err'] = 1;
         back();
-    }
-
-    // information for mysql
-    $host = 'localhost';
-    $db_username = 'pan';
-    $db_pwd = 'jA5R2P7fZySfT2Kt';
-    $db_name = 'pan';
-    // start connect to mysql db
-    $conn = mysqli_connect($host, $db_username, $db_pwd, $db_name);
-    $check_query = mysqli_query($conn, "select filepath from user where lightname='$newLightName'");
-    $arr = mysqli_fetch_assoc($check_query);
-    mysqli_free_result($check_query);
-    mysqli_close($conn);
-
-    if ($arr) {
-        $_SESSION['err'] = 2;
-        header("location:information.php");
-        exit;
-    } else {
-        $_SESSION['newlightname'] = $newLightName;
     }
 
     // check name
