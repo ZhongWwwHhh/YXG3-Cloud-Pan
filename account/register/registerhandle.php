@@ -46,14 +46,14 @@ if (time() > $_SESSION['outtime']) {
 $_SESSION['err'] = 0;
 
 if ($_SESSION['step'] == 1) {
-    $newLightName = $_POST['lightname'];
+    $newlightname = $_POST['lightname'];
     $agreeLicense = $_POST['agreeLicense'];
     $vaptchaToken = $_POST['vaptchaToken'];
     $vaptchaServer = $_POST['vaptchaServer'];
 
     // clean data
     require '../../function/inputcheck.php';
-    if (strlen($newLightName) > 10 || checkStr($newLightName) == FALSE) {
+    if (strlen($newlightname) > 10 || checkStr($newlightname) == FALSE) {
         $_SESSION['err'] = 1;
         back();
     }
@@ -128,7 +128,7 @@ if ($_SESSION['step'] == 1) {
 
     // check name
     require '../../function/mysqli.php';
-    $sqlselect = sqliSelect($newLightName, 'lightname', 'user');
+    $sqlselect = sqliSelect($newlightname, 'lightname', 'user');
     $sqlnum = sqliNumRow($sqlselect);
     if ($sqlnum != 0) {
         $_SESSION['err'] = 2;
@@ -138,6 +138,7 @@ if ($_SESSION['step'] == 1) {
     // to step 2
     $_SESSION['step'] = 2;
     $_SESSION['retryTimes'] = 0;
+    $_SESSION['newlightname'] = $newlightname;
     back();
 } elseif ($_SESSION['step'] == 2) {
     $_SESSION['newemail'] = $_POST['email'];
@@ -198,7 +199,7 @@ if ($_SESSION['step'] == 1) {
     $_SESSION['register'] = false;
 
     // create account
-    $newUser = array('lightname' => $newlightname, 'uuid' => $uuid, 'filepath' => $filepath, 'email' => $email);
+    $newUser = array('uuid' => $uuid, 'lightname' => $newlightname, 'filepath' => $filepath, 'email' => $email);
 
     require '../../function/mysqli.php';
     $sqlselect = sqliSelect($newlightname, 'lightname', 'user');
