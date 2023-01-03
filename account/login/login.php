@@ -3,7 +3,7 @@ $loginname = $_POST["loginname"];
 
 // no name
 if ($loginname == null) {
-    header("Location:/html/login.html");
+    header("Location:/");
 }
 
 // check name

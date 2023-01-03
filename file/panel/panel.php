@@ -55,40 +55,28 @@ $filepath = $_SESSION['filepath'];
                 </header>
 
                 <div id="file">
-                    <!--文件上传-->
-
-                    <h2>&nbsp;&nbsp;文件上传</h2>
-
-                    <form action="../operation/upload_file.php" method="post" enctype="multipart/form-data">
-                        <input type="file" name="myFile" id="test3" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" /><br />
-                        <input type="submit" value="上传" class="button_css" />
-                    </form>
-
-
-                    <!--文件删除-->
-                    <br />
-                    <br />
-                    <h2>&nbsp;&nbsp;文件删除</h2>
-
-                    <form action="delete_file.php" method="post">
-                        <input id="test1" name="filename" type="text" readonly="readonly" style="width: 100%; height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(255,113,241,1);" value="" placeholder="请在右侧选择文件" />
-                        <input type="submit" value="点击删除" class="button_css" />
-                    </form>
-
-
+                    <?php
+                    if ($_SESSION['write'] == true) {
+                        echo <<<EOT
+                            <!--文件上传-->
+                            <h2>&nbsp;&nbsp;文件上传</h2>
+                            <form action="../operation/upload_file.php" method="post" enctype="multipart/form-data">
+                                <input type="file" name="myFile" id="test3" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" /><br />
+                                <input type="submit" value="上传" class="button_css" />
+                            </form>
+                        EOT;
+                    }
+                    ?>
 
                     <!--文件下载-->
                     <br />
                     <br />
                     <h2>&nbsp;&nbsp;文件下载</h2>
-
                     <form action="../operation/download_file.php" method="get">
                         <input id="test2" name="filename" type="text" readonly="readonly" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" value="" placeholder="请在右侧选择文件" />
                         <input type="hidden" name="filepath" value="<?php echo $filepath ?>" readonly />
                         <input type="submit" value="点击下载" class="button_css" />
                     </form>
-
-
                 </div>
 
                 <div id="filelist">
@@ -129,9 +117,7 @@ $filepath = $_SESSION['filepath'];
     <script>
         function changeText(text) //点击超链接向input填入内容
         {
-            var element1 = document.getElementById("test1");
             var element2 = document.getElementById("test2");
-            element1.value = text;
             element2.value = text;
         }
     </script>
