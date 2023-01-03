@@ -85,6 +85,9 @@ $filepath = $_SESSION['filepath'];
                     <br />
                     <?php    ///查询目录下文件列表
 
+                    if (!is_dir("../../../storage/$filepath/")) {
+                        mkdir("../../../storage/$filepath/");
+                    }
                     function getDirContent($path)
                     {
                         if (!is_dir($path)) {
@@ -101,9 +104,7 @@ $filepath = $_SESSION['filepath'];
                     }
 
                     $file = getDirContent("../../../storage/$filepath/");
-                    if(!is_dir($file)){
-                        mkdir($file);
-                    }
+
                     $arrlength = count((array)$file);
                     ?>
                     <ul>
