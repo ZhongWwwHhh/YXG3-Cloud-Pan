@@ -100,7 +100,10 @@ $filepath = $_SESSION['filepath'];
                         return $arr;
                     }
 
-                    $file = getDirContent("../../storage/$filepath/");
+                    $file = getDirContent("../../../storage/$filepath/");
+                    if(!is_dir($file)){
+                        mkdir($file);
+                    }
                     $arrlength = count((array)$file);
                     ?>
                     <ul>

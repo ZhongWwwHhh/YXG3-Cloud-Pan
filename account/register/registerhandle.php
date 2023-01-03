@@ -189,10 +189,10 @@ if ($_SESSION['step'] == 1) {
     // account information
     $newlightname = $_SESSION['newlightname'];
     $email = $_SESSION['newemail'];
-    $uuid1 = substr(hash('sha256', rand(0, 2147483647)), rand(0, 56), 8);
-    $uuid2 = substr(hash('sha256', rand(0, 2147483647)), rand(0, 56), 8);
+    $uuid1 = substr(hash('sha256', random_int(0, 2147483647)), random_int(0, 56), 8);
+    $uuid2 = substr(hash('sha256', random_int(0, 2147483647)), random_int(0, 56), 8);
     $uuid = $uuid1 . $uuid2;
-    $filepath = substr($uuid, rand(0, 10), 5);
+    $filepath = substr($uuid, random_int(0, 10), 5);
 
     // prevent reflash
     $_SESSION['register'] = false;

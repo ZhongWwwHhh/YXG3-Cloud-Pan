@@ -4,7 +4,7 @@ header("Content-Type:text/html;charset=utf8");
 $filepath = $_GET['filepath'];
 $file_name = $_GET['filename'];
 
-$download_path = "../../storage/$filepath/";
+$download_path = "../../../storage/$filepath/";
 
 if (!file_exists($download_path . $file_name)) {
 
