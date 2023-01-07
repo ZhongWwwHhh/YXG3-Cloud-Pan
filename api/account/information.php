@@ -35,6 +35,9 @@ if (strlen($name) == 16) {
         $_SESSION['filepath'] = $arr['filepath'];
         $_SESSION['write'] = true;
 
+        // clean file
+        is_dir('../../../storage/' . $_SESSION['filepath'] . '/up/') && (require_once '../../function/file.php') . (delDir('../../../storage/' . $_SESSION['filepath'] . '/up/'));
+
         // return
         echo json_encode($return);
     } else {
