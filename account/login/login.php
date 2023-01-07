@@ -39,10 +39,8 @@ if (checkStr($loginname) == true) {
         header('location:/');
         exit;
     }
-    session_start();
-    $time = 120; // 2 minute timeout
-    // set cookie
-    setcookie(session_name(), session_id(), time() + $time, "/");
+    require_once '../../function/session.php';
+    sessionStart(true);
     $_SESSION['lightname'] = $userInformation['lightname'];
     $_SESSION['filepath'] = $userInformation['filepath'];
     $_SESSION['write'] = $write;
