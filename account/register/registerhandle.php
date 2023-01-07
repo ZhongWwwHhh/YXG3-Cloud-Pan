@@ -216,6 +216,9 @@ if ($_SESSION['step'] == 1) {
     sqliInsert($newUser, 'user');
     sqliClose();
 
+    // create filepath
+    mkdir("../../../storage/$filepath/");
+
     // show uuid
     $_SESSION = array();
     $_SESSION['newlightname'] = $newlightname;
