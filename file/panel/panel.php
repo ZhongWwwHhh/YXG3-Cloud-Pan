@@ -1,12 +1,9 @@
 <?php
-session_start();
-$time = 3600; // time out 1 hour
-setcookie(session_name(), session_id(), time() + $time, "/");
+require_once '../../function/session.php';
+sessionStart();
 // not login
-if (!isset($_SESSION['lightname'])) {
-    header('Location:/');
-    exit;
-}
+$_SESSION['lightname'] || (header('Location:/')) . (exit);
+
 
 $lightname = $_SESSION['lightname'];
 $filepath = $_SESSION['filepath'];
@@ -60,8 +57,11 @@ $filepath = $_SESSION['filepath'];
                         echo <<<EOT
                             <!--文件上传-->
                             <h2>&nbsp;&nbsp;文件上传</h2>
-                            <form action="../operation/upload_file.php" method="post" enctype="multipart/form-data">
+                            <form action="../../api/file/upload.php" method="post" enctype="multipart/form-data">
                                 <input type="file" name="myFile" id="test3" style="width: 100%;height: 30px; border-radius: 10px; box-shadow: 0 0 5px rgba(0,113,241,1);" /><br />
+                                <input name="blobnum" />
+                                <input name="totalblobnum" />
+                                <input name="filename" />
                                 <input type="submit" value="上传" class="button_css" />
                             </form>
                         EOT;
