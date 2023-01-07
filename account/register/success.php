@@ -1,12 +1,8 @@
 <?php
-session_start();
-$time = 1800; // time out 30 min
-setcookie(session_name(), session_id(), time() + $time, "/");
+require_once '../../function/session.php';
+sessionStart();
 
-if (!isset($_SESSION['uuid'])) {
-    header('location:/');
-    exit;
-}
+isset($_SESSION['uuid']) || (header('location:/')) . (exit);
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +46,5 @@ if (!isset($_SESSION['uuid'])) {
 </html>
 
 <?php
-$_SESSION = array();
 session_destroy();
 ?>

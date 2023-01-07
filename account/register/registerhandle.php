@@ -1,12 +1,17 @@
 <?php
-session_start();
-$time = 600; // time out 6 min
-setcookie(session_name(), session_id(), time() + $time, "/");
-// not from register.php
-if ($_SESSION['register'] != true) {
+header('cache-control:no-store');
+
+require_once '../../function/session.php';
+sessionStart();
+
+// not from register.php or not set session
+function wrongPage()
+{
     echo 'Wrong page. Please go back';
     exit;
 }
+isset($_SESSION['register']) || wrongPage();
+$_SESSION['register'] || wrongPage();
 
 // to register
 function back()
@@ -30,10 +35,9 @@ if (!isset($_SESSION['retryTimes'])) {
 }
 
 // time control
-if (!isset($_SESSION['outtime'])) {
-    $_SESSION['outtime'] = time() + 1800;
-}
-if (time() > $_SESSION['outtime']) {
+isset($_SESSION['reigstertimeout']) ||  $_SESSION['reigstertimeout'] = time() + 1800;
+
+if (time() > $_SESSION['reigstertimeout']) {
     // timeout
     $_SESSION = array();
     $_SESSION['register'] = true;
@@ -57,6 +61,17 @@ if ($_SESSION['step'] == 1) {
         $_SESSION['err'] = 1;
         back();
     }
+
+    // check vaptcha server url
+    function checkUrl($url)
+    {
+        $patternH = '/http/';
+        $patternV = '#https://[a-z0-9]{0,5}\.vaptcha\.(net|com)/#';
+        $resH = preg_match_all($patternH, $url);
+        $resV = preg_match_all($patternV, $url);
+        return ($resH == 1 && $resV == 1) ? true : false;
+    }
+    checkUrl($vaptchaServer) || ($_SESSION['err'] = 6) . (back());
 
     // vaptcha
     function getIP()
@@ -98,9 +113,12 @@ if ($_SESSION['step'] == 1) {
         curl_setopt($curl, CURLOPT_HEADER, 0); // 显示返回的Header区域内容
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // 获取的信息以文件流的形式返回
         $tmpInfo = curl_exec($curl); // 执行操作
+
+        // error
         if (curl_errno($curl)) {
-            echo 'Errno' . curl_error($curl); //捕抓异常
+            return false;
         }
+
         curl_close($curl); // 关闭CURL会话
         return $tmpInfo; // 返回数据，json格式
     }

@@ -1,18 +1,16 @@
 <?php
-session_start();
-$time = 1800; // time out 30 min
-setcookie(session_name(), session_id(), time() + $time, "/");
+header('cache-control:no-store');
+
+require_once '../../function/session.php';
+sessionStart();
+
 // already login
 if (isset($_SESSION['lightname'])) {
-    header("Location:/file/panel/panel.php");
+    header('Location:/file/panel/panel.php');
     exit;
 }
 
-if (!isset($_SESSION['register'])) {
-    $_SESSION['register'] = true;
-    $_SESSION['step'] = 1;
-    $_SESSION['err'] = 0;
-}
+isset($_SESSION['register'], $_SESSION['step'], $_SESSION['err']) || ($_SESSION['register'] = true) . ($_SESSION['step'] = 1) . ($_SESSION['err'] = 0);
 ?>
 
 <!DOCTYPE html>
