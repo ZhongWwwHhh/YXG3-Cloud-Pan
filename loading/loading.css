@@ -1,15 +1,25 @@
+html,body{
+    margin: 0;
+    border: 0;
+    height: 100%;
+}
+p {
+    font-size: 40px;
+    margin-top: 0;
+    text-align: center;
+}
+
 .loadingThree {
-    width: 165px;
-    height: 25px;
+    width: 260px;
+    height: 40px;
     margin: 0 auto;
-    margin-top: 250px;
 }
 
 .loadingThree span {
     display: inline-block;
-    width: 25px;
-    height: 100%;
-    margin-right: 5px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
     border-radius: 50%;
     background: rgb(0, 200, 255);
     -webkit-animation: load 1.04s ease infinite;
