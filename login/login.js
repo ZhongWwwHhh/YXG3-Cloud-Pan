@@ -1,6 +1,7 @@
 const html = document.querySelector('html');
 const loading = document.querySelector('iframe');
 const btnLogin = document.querySelector('#btnLogin');
+const loginName = document.querySelector('#loginname');
 
 // pressign enter means clicking button
 const input = document.getElementById('loginname');
@@ -15,6 +16,13 @@ function checkInput(inputContent) {
     return (inputContent.length == 16 || (inputContent.length <= 10 && inputContent.length > 0)) ? true : false;
 }
 
+function loginFail() {
+    loading.classList.remove('loadingShow');
+    loading.classList.add('loadingHide');
+    loginName.value = '';
+    return;
+}
+
 // api login
 function login() {
     let inputContent = input.value;
@@ -23,6 +31,7 @@ function login() {
         loading.classList.add('loadingShow');
     } else {
         alert('Please input correctly');
+        loginFail();
         return;
     }
 
@@ -42,15 +51,13 @@ function login() {
                         return;
                     } else {
                         alert('Invalid login information');
-                        loading.classList.remove('loadingShow');
-                        loading.classList.add('loadingHide');
+                        loginFail();
                         return;
                     }
                 })
             } else {
                 alert('Network problem or request too frequently');
-                loading.classList.remove('loadingShow');
-                loading.classList.add('loadingHide');
+                loginFail();
                 return;
             }
         });
