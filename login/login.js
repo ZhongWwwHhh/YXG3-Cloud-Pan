@@ -15,19 +15,7 @@ function checkInput(inputContent) {
     return (inputContent.length == 16 || (inputContent.length <= 10 && inputContent.length > 0)) ? true : false;
 }
 
-/*
-check
-loading
-fetch
-if bad
-    alert
-else
-    sessionStorage
-        lightname
-        filepath
-        write
-    header to /dash
-*/
+// api login
 function login() {
     let inputContent = input.value;
     if (checkInput(inputContent)) {
@@ -65,25 +53,7 @@ function login() {
                 loading.classList.add('loadingHide');
                 return;
             }
-        })
-
-    /*
-        .then(res => res.text())
-        .then(function (res) {
-            if (res == 'bad' || res == null) {
-                alert('Invalid login information, network problem or request too frequently');
-                loading.classList.remove('loadingShow');
-                loading.classList.add('loadingHide');
-                return;
-            } else {
-                const information = JSON.parse(res);
-                sessionStorage.lightname = information.lightname;
-                sessionStorage.filepath = information.filepath;
-                sessionStorage.write = information.write;
-                window.location.assign('/dash');
-                return;
-            }
-});*/
+        });
 }
 
 btnLogin.onclick = login;
