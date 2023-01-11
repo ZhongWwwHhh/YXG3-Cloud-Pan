@@ -1,4 +1,3 @@
-const html = document.querySelector('html');
 const loading = document.querySelector('iframe');
 const btnLogin = document.querySelector('#btnLogin');
 const loginName = document.querySelector('#loginname');
@@ -66,7 +65,8 @@ function login() {
 btnLogin.onclick = login;
 
 // auto dark mode
-var currdate = new Date();
+const html = document.querySelector('html');
+let currdate = new Date();
 if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
     html.classList.add('day');
 } else {
