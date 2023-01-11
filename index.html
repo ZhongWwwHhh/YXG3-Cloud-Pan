@@ -15,8 +15,15 @@
             width: 100%;
         }
 
-        html {
+        .day {
             height: 100%;
+            background: linear-gradient(0deg, rgb(168, 251, 255) 10%, rgb(255, 252, 216) 60%);
+        }
+
+        .night {
+            filter: invert(1) hue-rotate(225deg);
+            height: 100%;
+            background: linear-gradient(0deg, rgb(168, 251, 255) 10%, rgb(255, 252, 216) 60%);
         }
 
         body {
@@ -63,5 +70,16 @@
     <p>There is Void Storage</p>
     <iframe src="/loading/loading.html"></iframe>
 </body>
+
+<script>
+    // auto dark mode
+    const html = document.querySelector('html');
+    let currdate = new Date();
+    if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
+        html.classList.add('day');
+    } else {
+        html.classList.add('night');
+    }
+</script>
 
 </html>
