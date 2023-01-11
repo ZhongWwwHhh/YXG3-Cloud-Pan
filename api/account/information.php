@@ -1,13 +1,14 @@
 <?php
 /* use POST to send name
- * back: bad, lightname & filepath & write
+ * back: fail/success, lightname & filepath & write
  */
 header('Content-Type:application/json;charset=utf8');
 header('cache-control:no-store');
 
 function bad()
 {
-    echo 'bad';
+    $return = array('success' => 'fail');
+    echo json_encode($return);
     exit;
 }
 
@@ -25,7 +26,7 @@ if (strlen($name) == 16) {
     $row = sqliSelect($name, 'uuid', 'user');
     if (sqliNumRow($row) == 1) {
         $arr = sqliGetArray($row);
-        $return = array('lightname' => $arr['lightname'], 'filepath' => $arr['filepath'], 'write' => true);
+        $return = array('success' => 'success', 'lightname' => $arr['lightname'], 'filepath' => $arr['filepath'], 'write' => true);
 
         // start session
         require_once '../../function/session.php';
@@ -41,20 +42,23 @@ if (strlen($name) == 16) {
         // return
         echo json_encode($return);
     } else {
-        echo 'bad';
+        sqliClose();
+        bad();
     }
 } elseif (strlen($name) <= 10) {
     // lightname
     $row = sqliSelect($name, 'lightname', 'user');
     if (sqliNumRow($row) == 1) {
         $arr = sqliGetArray($row);
-        $return = array('lightname' => $arr['lightname'], 'filepath' => $arr['filepath'], 'write' => false);
+        $return = array('success' => 'success', 'lightname' => $arr['lightname'], 'filepath' => $arr['filepath'], 'write' => false);
         echo json_encode($return);
     } else {
-        echo 'bad';
+        sqliClose();
+        bad();
     }
 } else {
-    echo 'bad';
+    sqliClose();
+    bad();
 }
 sqliClose();
 exit;
