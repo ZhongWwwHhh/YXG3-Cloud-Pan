@@ -60,7 +60,7 @@ btnLogin.onclick = login;
 
 // auto dark mode
 var currdate = new Date();
-if (currdate.getHours() >= 6 && currdate.getHours() <= 18) {
+if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
     html.classList.add('day');
 } else {
     html.classList.add('night');
