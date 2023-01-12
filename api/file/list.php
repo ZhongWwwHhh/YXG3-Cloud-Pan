@@ -1,12 +1,19 @@
 <?php
 /* use GET to send filepath
- * back: bad, none, filelist 
+ * back: fail/success, filelist 
  */
 header('Content-Type:application/json;charset=utf8');
 header('Cache-Control:max-age=10,must-revalidate');
 
-isset($_GET['filepath']) ? $filepath = $_GET['filepath'] : (print 'bad') . (exit);
-//strlen($filepath) == 5 || (print 'bad') . (exit);
+function fail()
+{
+    $return = array('success' => 'fail');
+    echo json_encode($return);
+    exit;
+}
+
+isset($_GET['filepath']) ? $filepath = $_GET['filepath'] : fail();
+//strlen($filepath) == 5 || fail();
 
 require_once '../../function/inputcheck.php';
 if (checkStr($filepath)) {
@@ -19,10 +26,11 @@ if (checkStr($filepath)) {
                 $return[] = $value;
             }
         }
+        $return['success'] = 'success';
         echo json_encode($return);
     } else {
-        echo 'none';
+        fail();
     }
 } else {
-    echo 'bad';
+    fail();
 }
