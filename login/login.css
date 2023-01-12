@@ -14,8 +14,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
-    padding: 50px;
+    width: clamp(250px, 95%, 500px);
+    padding: clamp(25px, 10%, 50px);
     background: rgb(70, 215, 255);
     box-sizing: border-box;
     box-shadow: 10px 15px 10px rgb(0, 200, 255);
