@@ -32,6 +32,7 @@ isset($_SESSION['register'], $_SESSION['step'], $_SESSION['err']) || ($_SESSION[
 
 <body>
     <div class="main">
+        <div class="warn">FireFox人机验证存在问题，建议使用webkit或Blink内核的浏览器，如<a href="https://www.google.cn/chrome/">Chrome</a>或<a href="https://www.microsoft.com/edge">Edge</a></div>
         <?php
         if ($_SESSION['err'] != 0) {
             echo '<div class="warn">';
