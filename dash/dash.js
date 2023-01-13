@@ -9,7 +9,7 @@ if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
 
 // get account information
 (typeof (sessionStorage.lightname) == 'undefined' || typeof (sessionStorage.filepath) == 'undefined' || typeof (sessionStorage.write) == 'undefined') && (window.location.pathname = '/login');
-(sessionStorage.lightname && sessionStorage.filepath && sessionStorage.write) || (window.location.pathname = '/login');
+(sessionStorage.lightname == null || sessionStorage.filepath == null || sessionStorage.write == null) && (window.location.pathname = '/login');
 let lightname = sessionStorage.lightname;
 let filepath = sessionStorage.filepath;
 let write = sessionStorage.write;
