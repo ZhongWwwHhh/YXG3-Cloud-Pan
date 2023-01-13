@@ -3,7 +3,7 @@
  * back: fail/success, filelist 
  */
 header('Content-Type:application/json;charset=utf8');
-header('Cache-Control:max-age=10,must-revalidate');
+header('Cache-Control:max-age=3,must-revalidate');
 
 function fail()
 {
