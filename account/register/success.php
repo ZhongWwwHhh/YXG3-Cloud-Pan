@@ -1,4 +1,6 @@
 <?php
+header('cache-control:no-store');
+
 require_once '../../function/session.php';
 sessionStart();
 
