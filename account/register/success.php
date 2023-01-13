@@ -25,7 +25,7 @@ isset($_SESSION['uuid']) || (header('location:/')) . (exit);
         <label for="uuid">您的UUID是：</label><br>
         <button id="uuid" data-clipboard-target="#uuid"><?php echo $_SESSION['uuid']; ?></button>
         <p id="remind">请妥善保存此UUID，这是您以可写权限登陆的唯一凭证。<br>您可以复制后转到登录页，并利用浏览器自带的密码保存功能</p>
-        <p><a id="finish" href="/account/login/login.html">已保存UUID 转到登录页</a></p>
+        <p><a id="finish" href="/">已保存UUID 转到登录页</a></p>
     </div>
 </body>
 
