@@ -46,7 +46,7 @@ function login() {
                         sessionStorage.lightname = information.lightname;
                         sessionStorage.filepath = information.filepath;
                         sessionStorage.write = information.write;
-                        window.location.assign('/dash');
+                        window.location.pathname = '/dash';
                         return;
                     } else {
                         alert('Invalid login information');
