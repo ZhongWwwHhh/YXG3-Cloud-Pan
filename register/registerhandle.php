@@ -1,7 +1,7 @@
 <?php
 header('cache-control:no-store');
 
-require_once '../../function/session.php';
+require_once '../function/session.php';
 sessionStart();
 
 // not from register.php or not set session
@@ -56,7 +56,7 @@ if ($_SESSION['step'] == 1) {
     $vaptchaServer = $_POST['vaptchaServer'];
 
     // clean data
-    require '../../function/inputcheck.php';
+    require '../function/inputcheck.php';
     if (strlen($newlightname) > 10 || checkStr($newlightname) == FALSE) {
         $_SESSION['err'] = 1;
         back();
@@ -145,7 +145,7 @@ if ($_SESSION['step'] == 1) {
     }
 
     // check name
-    require '../../function/mysqli.php';
+    require '../function/mysqli.php';
     $sqlselect = sqliSelect($newlightname, 'lightname', 'user');
     $sqlnum = sqliNumRow($sqlselect);
     if ($sqlnum != 0) {
@@ -179,7 +179,7 @@ if ($_SESSION['step'] == 1) {
 
     // send email
     $_SESSION['emailContent'] = '<p>您的注册验证码是：</p><p style="font-size: 25px;">' . $_SESSION['verifyCode'] . '</p><p>验证码在30分钟内有效，请根据页面提示输入。</p>';
-    require '../../function/email.php';
+    require '../function/email.php';
     if (sendEmail('邮箱验证', $_SESSION['emailContent'], $_SESSION['newemail'])) {
         // to step 3
         $_SESSION['step'] = 3;
@@ -193,7 +193,7 @@ if ($_SESSION['step'] == 1) {
     // resend
     if (isset($_POST['resend'])) {
         if ($_POST['resend'] == true) {
-            require '../../function/email.php';
+            require '../function/email.php';
             sendEmail('邮箱验证', $_SESSION['emailContent'], $_SESSION['newemail']);
             back();
         }
@@ -219,7 +219,7 @@ if ($_SESSION['step'] == 1) {
     // create account
     $newUser = array('uuid' => $uuid, 'lightname' => $newlightname, 'filepath' => $filepath, 'email' => $email);
 
-    require '../../function/mysqli.php';
+    require '../function/mysqli.php';
     $sqlselect = sqliSelect($newlightname, 'lightname', 'user');
     // recheck
     $sqlnum = sqliNumRow($sqlselect);
@@ -235,13 +235,14 @@ if ($_SESSION['step'] == 1) {
     sqliClose();
 
     // create filepath
-    mkdir("../../../storage/$filepath/");
+    mkdir("../../storage/$filepath/");
 
     // show uuid
-    $_SESSION = array();
+    $_SESSION['register'] = false;
     $_SESSION['newlightname'] = $newlightname;
     $_SESSION['uuid'] = $uuid;
-    header("location:success.php");
+    session_write_close();
+    header('location:success.php');
     exit;
 } else {
     echo 'Wrong. Unkonwn problem. Please restart your browser';

@@ -1,10 +1,14 @@
 <?php
 header('cache-control:no-store');
 
-require_once '../../function/session.php';
+require_once '../function/session.php';
 sessionStart();
 
-isset($_SESSION['uuid']) || (header('location:/')) . (exit);
+if (!isset($_SESSION['uuid'], $_SESSION['newlightname'])) {
+    session_destroy();
+    header('location:/');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
