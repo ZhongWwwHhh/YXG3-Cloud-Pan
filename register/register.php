@@ -110,7 +110,7 @@ isset($_SESSION['register'], $_SESSION['step'], $_SESSION['err']) || ($_SESSION[
                     </script>
 
                     <input required id="agreeLicense" type="checkbox" name="agreeLicense">
-                    <label for="agreeLicense">我已阅读并遵守<a href="/text/license.html" target="_blank">使用规范</a></label>
+                    <label for="agreeLicense">我已阅读并遵守<a href="/license/license.html" target="_blank">使用规范</a></label>
                 EOT;
             } elseif ($_SESSION['step'] == 2) {
                 print <<<EOT
