@@ -15,7 +15,7 @@ function bad()
 // POST input check
 isset($_POST['filename'], $_POST['blobnum'], $_POST['totalblobnum'], $_FILES['fileupload']) || bad();
 (is_numeric($_POST['blobnum']) && is_numeric($_POST['totalblobnum'])) || bad();
-(strlen($_POST['filename']) <= 25 && $_POST['totalblobnum'] <= 200 && $_POST['blobnum'] <= $_POST['totalblobnum']) || bad();
+(strlen($_POST['filename']) <= 100 && $_POST['totalblobnum'] <= 200 && $_POST['blobnum'] <= $_POST['totalblobnum']) || bad();
 
 // session
 require_once '../../function/session.php';
@@ -57,7 +57,7 @@ if ($blobNum >= $totalBlobNum) {
 
     // marge
     // can't open
-    if (!$outFile = @fopen('../../../storage/' . $filepath . '/' . date('YmdHis') . $fileName, "wb")) {
+    if (!$outFile = @fopen('../../../storage/' . $filepath . '/' . date('YmdHis') . '-' . $fileName, "wb")) {
         fail();
     }
 
