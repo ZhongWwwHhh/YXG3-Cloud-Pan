@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Storage Dash</title>
+    <link rel="stylesheet" type="text/css" href="dash.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/angular.js/1.8.3/angular.min.js"></script>
+</head>
+
+<body>
+    <div id="background"></div>
+    <div class="left">
+        <h1>Void Storage Dash</h1>
+        <div class="uploadHide" id="upload">
+            <iframe id="uploadiframe" src="upload.html" scrolling="no" frameborder="0" title="Upload"></iframe>
+        </div>
+        <h2 id="quit">QUIT</h2>
+    </div>
+    <div class="right">
+        <div id="filetitle">
+            <h2 id="file">Your File (Click to download)</h2>
+            <h2 id="refresh">Refresh</h2>
+        </div>
+        <div id="filelist">
+        </div>
+    </div>
+    <iframe id="loading" class="loadingShow" src="/loading/loading.html" frameborder="0" title="Loading"></iframe>
+
+    <script src="dash.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Void Storage Upload</title>
+    <style>
+        * {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        h2 {
+            height: auto;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="upload">
+        <form class="hide" action="none">
+            <input type="file" id="inputfile">
+        </form>
+        <h2 id="uploadinfor">Upload</h2>
+    </div>
+</body>
+
+<script>
+    // upload btn
+    let htmlDivUpload = document.getElementById('upload');
+    let htmlInputFile = document.getElementById("inputfile");
+
+    // upload setting
+    let sliceSize = (1024 * 1024) * 1; //分片大小
+    let boolName;
+    let file;
+    let totalblobnum;
+    let fileName;
+    let fileExt;
+
+    function getInputFile() {
+        if (typeof (htmlInputFile.files) != 'undefined') {
+            if (htmlInputFile.files) {
+                if (typeof (htmlInputFile.files[0]) != 'undefined') {
+                    if (htmlInputFile.files[0]) {
+                        upload();
+                    }
+                }
+            }
+        }
+    }
+
+    function upload() {
+        file = htmlInputFile.files[0]; //获取inputfile
+        htmlInputFile.files = null;
+        totalblobnum = Math.ceil(file.size / sliceSize);
+
+        // file name and extension
+        fileExt = file.name.substring(file.name.lastIndexOf("."));
+        fileName = file.name.substring(0, file.name.lastIndexOf("."));
+
+        if (fileExt.length > 10) {
+            document.getElementById("uploadinfor").innerHTML = 'The file extension is too long';
+            return;
+        } else {
+            if (!(fileName.length + fileExt.length <= 25)) {
+                let needNameLength = 25 - fileExt.length;
+                fileName = fileName.substr(0, needNameLength);
+            }
+        }
+
+        boolName = fileName + fileExt;
+        updata(0);
+    }
+
+    // upload
+    function updata(index) {
+        let xmt = new XMLHttpRequest();
+
+        // slice start
+        let star = index * sliceSize;
+
+        // already send finish
+        if (star > file.size) {
+            return;
+        }
+
+
+        let bool = file.slice(star, star + sliceSize); //slice（分割起点，分割终点）是js切割inputfile的函数，
+        let boolfile = new File([bool], boolName) //把分割后的快转成inputfile传输
+
+        // POST content
+        let from = new FormData();
+        from.append("fileupload", boolfile);
+        from.append('filename', boolName);
+        from.append('blobnum', index + 1);
+        from.append('totalblobnum', totalblobnum);
+
+        // send POST
+        xmt.open("POST", "/api/file/upload.php", true)
+        xmt.send(from)
+
+        // receive
+        xmt.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                if (this.responseText == "continue") {
+                    // show progress
+                    document.getElementById("uploadinfor").innerHTML = Math.ceil(star * 1000 / file.size) / 10 + '%<br>Uploading';
+                    setTimeout(() => updata(++index), 200);
+                }
+                if (this.responseText == 'success') {
+                    // upload success finish
+                    document.getElementById("uploadinfor").innerHTML = 'Success<br>Upload';
+                }
+                if (this.responseText == 'bad' || this.responseText == 'fail') {
+                    // upload problem
+                    document.getElementById("uploadinfor").innerHTML = 'Fail<br>Please retry';
+                }
+            }
+        };
+    }
+
+    window.onload = function () {
+        if (sessionStorage.write != 'true' && sessionStorage.write != true) {
+            document.getElementById("uploadinfor").innerHTML = 'No permission';
+        }
+        htmlDivUpload.onclick = function () {
+            document.getElementById("inputfile").click();
+        };
+        htmlInputFile.onchange = getInputFile;
+    }
+</script>
+
+</html>
