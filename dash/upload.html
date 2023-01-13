@@ -55,6 +55,8 @@
             if (htmlInputFile.files) {
                 if (typeof (htmlInputFile.files[0]) != 'undefined') {
                     if (htmlInputFile.files[0]) {
+                        htmlDivUpload.onclick = null;
+                        document.getElementById("uploadinfor").innerHTML = 'Uploading<br>Slow';
                         upload();
                     }
                 }
@@ -72,7 +74,7 @@
         fileName = file.name.substring(0, file.name.lastIndexOf("."));
 
         if (fileExt.length > 10) {
-            document.getElementById("uploadinfor").innerHTML = 'The file extension is too long';
+            document.getElementById("uploadinfor").innerHTML = 'The file extension is too long<br>Choose another';
             return;
         } else {
             if (!(fileName.length + fileExt.length <= 25)) {
@@ -123,10 +125,19 @@
                 if (this.responseText == 'success') {
                     // upload success finish
                     document.getElementById("uploadinfor").innerHTML = 'Success<br>Upload';
+                    // can choose other
+                    htmlDivUpload.onclick = function () {
+                        document.getElementById("inputfile").click();
+                    };
+                    top.getFileList();
                 }
                 if (this.responseText == 'bad' || this.responseText == 'fail') {
                     // upload problem
                     document.getElementById("uploadinfor").innerHTML = 'Fail<br>Please retry';
+                    // can choose other
+                    htmlDivUpload.onclick = function () {
+                        document.getElementById("inputfile").click();
+                    };
                 }
             }
         };
