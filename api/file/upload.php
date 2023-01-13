@@ -1,5 +1,5 @@
 <?php
-/* use POST to send fileName & blobNum & totalBlobNum
+/* use POST to send fileName & blobNum & totalBlobNum & fileupload
  * back: bad, continue, fail, success
  * warn: login first, provide correct information
  * !!!: should prevent attack
@@ -13,7 +13,7 @@ function bad()
 }
 
 // POST input check
-($_POST['filename'] && $_POST['blobnum'] && $_POST['totalblobnum']) || bad();
+isset($_POST['filename'], $_POST['blobnum'], $_POST['totalblobnum'], $_FILES['fileupload']) || bad();
 (is_numeric($_POST['blobnum']) && is_numeric($_POST['totalblobnum'])) || bad();
 (strlen($_POST['filename']) <= 25 && $_POST['totalblobnum'] <= 200 && $_POST['blobnum'] <= $_POST['totalblobnum']) || bad();
 
@@ -21,10 +21,11 @@ function bad()
 require_once '../../function/session.php';
 sessionStart();
 
-($_SESSION['lightname'] && $_SESSION['write']) || (session_destroy()) . (header('Location:/')) . (exit);
+isset($_SESSION['lightname'], $_SESSION['write']) || (session_destroy()) . (bad());
+$_SESSION['write'] == true || (session_destroy()) . (bad());
 
 // file size, less than 1MB
-$_FILES['myFile']['size'] <= 1048576 || bad();
+$_FILES['fileupload']['size'] <= 1048576 || bad();
 
 
 $filepath = $_SESSION['filepath'];
@@ -41,7 +42,7 @@ session_write_close();
 if (!is_dir($upDir)) {
     mkdir($upDir);
 }
-move_uploaded_file($_FILES['myFile']['tmp_name'], $upFile);
+move_uploaded_file($_FILES['fileupload']['tmp_name'], $upFile);
 
 if ($blobNum >= $totalBlobNum) {
     // the last blob
