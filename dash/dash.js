@@ -8,8 +8,8 @@ if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
 }
 
 // get account information
-(typeof (sessionStorage.lightname) == 'undefined' || typeof (sessionStorage.filepath) == 'undefined' || typeof (sessionStorage.write) == 'undefined') && (window.location.pathname = '/login');
-(sessionStorage.lightname == null || sessionStorage.filepath == null || sessionStorage.write == null) && (window.location.pathname = '/login');
+(typeof (sessionStorage.lightname) == 'undefined' || typeof (sessionStorage.filepath) == 'undefined' || typeof (sessionStorage.write) == 'undefined') && (window.location.pathname = '/login/');
+(sessionStorage.lightname == null || sessionStorage.filepath == null || sessionStorage.write == null) && (window.location.pathname = '/login/');
 let lightname = sessionStorage.lightname;
 let filepath = sessionStorage.filepath;
 let write = sessionStorage.write;
@@ -65,7 +65,7 @@ function getFileList() {
                         return;
                     } else {
                         alert('Invalid login information');
-                        window.location.pathname = '/login';
+                        window.location.pathname = '/login/';
                         return;
                     }
                 });
@@ -90,7 +90,7 @@ htmlBtnQuit.onclick = function () {
             .then(res => {
                 if (res.ok) {
                     sessionStorage.clear();
-                    window.location.pathname = '/login';
+                    window.location.pathname = '/login/';
                     return;
                 } else {
                     alert('Network problem or request too frequently');
@@ -100,7 +100,7 @@ htmlBtnQuit.onclick = function () {
             });
     } else {
         sessionStorage.clear();
-        window.location.pathname = '/login';
+        window.location.pathname = '/login/';
         return;
     }
 };
