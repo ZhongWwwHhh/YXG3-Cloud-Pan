@@ -1,0 +1,17 @@
+# robots.txt
+User-agent: Googlebot
+Disallow: 
+User-agent: MSNBot
+Disallow: 
+User-agent: Bingbot
+Disallow: 
+User-agent: Slurp
+Disallow: 
+User-agent: baiduspider
+Disallow: 
+User-agent: *
+Disallow: /
+Disallow: /api
+Disallow: /register
+Disallow: /dash
+Disallow: /loading
