@@ -15,12 +15,15 @@ jobs:
             ref: ${{ github.ref }}
 
         - name: Auto Minify
-          uses: nizarmah/auto-minify@v2.1
+          uses: nizarmah/auto-minify@v2.1.1
           with:
             overwrite: true
 
-        # Auto commits minified content to the existing files
-        # Ignore it if you don't want to commit the files to the repository 
+        - name: Delete old production branch
+          uses: dawidd6/action-delete-branch@v3.1.0
+          with:
+            branches: production
+
         - name: Commit
           uses: stefanzweifel/git-auto-commit-action@v4
           with:
