@@ -161,4 +161,6 @@ isset($_SESSION['register'], $_SESSION['step'], $_SESSION['err']) || ($_SESSION[
 
 </body>
 
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "dc7b487abf224198864fc5742a78842a"}'></script><!-- End Cloudflare Web Analytics -->
+
 </html>
