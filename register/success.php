@@ -49,7 +49,7 @@ if (!isset($_SESSION['uuid'], $_SESSION['newlightname'])) {
     });
 </script>
 
-<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "1120d6f7f47d49a1a19dcded73f85343"}'></script><!-- End Cloudflare Web Analytics -->
+<script async defer src="https://analytics.umami.is/script.js" data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
 
 </html>
 
