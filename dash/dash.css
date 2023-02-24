@@ -35,17 +35,24 @@ body {
 
 .left {
     position: fixed;
+    top: 10%;
     top: max(10%, 40px);
+    left: 10%;
     left: max(10%, 40px);
+    height: 80%;
     height: max(80%, 420px);
+    width: 30%;
     width: max(30%, 120px);
     text-align: center;
 }
 
 .right {
     position: absolute;
+    top: 10%;
     top: max(10%, 40px);
+    left: 45%;
     left: max(45%, 180px);
+    width: 45%;
     width: max(45%, 180px);
     overflow-wrap: break-word;
 }

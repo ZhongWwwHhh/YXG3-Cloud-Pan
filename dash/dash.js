@@ -1,3 +1,22 @@
+// is IE
+if (!!window.MSInputMethodContext && !!document.documentMode) {
+    // Create Promise polyfill script tag
+    var promiseScript = document.createElement("script");
+    promiseScript.type = "text/javascript";
+    promiseScript.src =
+        "https://cdn.jsdelivr.net/npm/promise-polyfill@8.1.3/dist/polyfill.min.js";
+
+    // Create Fetch polyfill script tag
+    var fetchScript = document.createElement("script");
+    fetchScript.type = "text/javascript";
+    fetchScript.src =
+        "https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js";
+
+    // Add polyfills to head element
+    document.head.appendChild(promiseScript);
+    document.head.appendChild(fetchScript);
+}
+
 // auto dark mode
 const html = document.querySelector('html');
 let currdate = new Date();
@@ -29,6 +48,7 @@ function loadingOff() {
 
 // download
 function downloadFile(filename) {
+    console.log('download:' + filename);
     window.open('/api/file/download.php?filepath=' + filepath + '&filename=' + filename);
 }
 
@@ -41,9 +61,9 @@ function getFileList() {
     fetch(url, {
         method: "GET",
     })
-        .then(res => {
+        .then(function (res) {
             if (res.ok) {
-                res.json().then(fileList => {
+                res.json().then(function (fileList) {
                     if (fileList.success == 'success') {
                         // convert json to htmlFileList <p>
                         delete fileList.success;
@@ -53,13 +73,14 @@ function getFileList() {
                         for (i in fileList) {
                             list = '<p id="file' + i + '">' + fileList[i] + '</p>' + list;
                         }
-                        list += '<p>No more</p>'
+                        list += '<p>No more</p>';
                         htmlFileList.innerHTML = list;
 
                         // add event
                         let htmlP = document.querySelectorAll('p');
                         for (let i = 0; i < htmlP.length - 1; i++) {
-                            htmlP[i].onclick = function () { downloadFile(htmlP[i].innerHTML) }
+                            let name = htmlP[i].innerHTML;
+                            htmlP[i].onclick = function () { downloadFile(name) };
                         }
                         loadingOff();
                         return;
@@ -87,7 +108,7 @@ htmlBtnQuit.onclick = function () {
     loadingOn();
     if (write == 'true' || write == true) {
         fetch('/api/account/quit.php', { method: 'GET' })
-            .then(res => {
+            .then(function (res) {
                 if (res.ok) {
                     sessionStorage.clear();
                     window.location.pathname = '/login/';

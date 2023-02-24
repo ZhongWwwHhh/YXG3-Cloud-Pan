@@ -99,9 +99,8 @@
             return;
         }
 
-
-        let bool = file.slice(star, star + sliceSize); //slice（分割起点，分割终点）是js切割inputfile的函数，
-        let boolfile = new File([bool], boolName) //把分割后的快转成inputfile传输
+        let bool = file.slice(star, star + sliceSize);
+        let boolfile = new Blob([bool]);
 
         // POST content
         let from = new FormData();
@@ -120,7 +119,7 @@
                 if (this.responseText == "continue") {
                     // show progress
                     document.getElementById("uploadinfor").innerHTML = Math.ceil(star * 1000 / file.size) / 10 + '%<br>Uploading';
-                    setTimeout(() => updata(++index), 200);
+                    setTimeout(function () { updata(++index) }, 200);
                 }
                 if (this.responseText == 'success') {
                     // upload success finish
@@ -154,6 +153,7 @@
     }
 </script>
 
-<script async defer src="https://analytics.umami.is/script.js" data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
+<script async defer src="https://analytics.umami.is/script.js"
+    data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
 
 </html>

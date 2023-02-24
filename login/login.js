@@ -2,6 +2,25 @@ const loading = document.querySelector('iframe');
 const btnLogin = document.querySelector('#btnLogin');
 const loginName = document.querySelector('#loginname');
 
+// is IE
+if (!!window.MSInputMethodContext && !!document.documentMode) {
+    // Create Promise polyfill script tag
+    var promiseScript = document.createElement("script");
+    promiseScript.type = "text/javascript";
+    promiseScript.src =
+        "https://cdn.jsdelivr.net/npm/promise-polyfill@8.1.3/dist/polyfill.min.js";
+
+    // Create Fetch polyfill script tag
+    var fetchScript = document.createElement("script");
+    fetchScript.type = "text/javascript";
+    fetchScript.src =
+        "https://cdn.jsdelivr.net/npm/whatwg-fetch@3.4.0/dist/fetch.umd.min.js";
+
+    // Add polyfills to head element
+    document.head.appendChild(promiseScript);
+    document.head.appendChild(fetchScript);
+}
+
 // pressign enter means clicking button
 const input = document.getElementById('loginname');
 input.addEventListener('keydown', function (event) {
@@ -39,9 +58,9 @@ function login() {
         method: "POST",
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
     })
-        .then(res => {
+        .then(function (res) {
             if (res.ok) {
-                res.json().then(information => {
+                res.json().then(function (information) {
                     if (information.success == 'success') {
                         sessionStorage.lightname = information.lightname;
                         sessionStorage.filepath = information.filepath;

@@ -7,7 +7,7 @@ function sessionStart(bool $reset = false)
     $lifeTime = 36000;
 
     // cookie configuration
-    $sessionCookie = array('lifetime' => $lifeTime, 'domain' => '.yxg3.xyz', 'path' => '/', 'httponly' => true, 'samesite' => 'Lax');
+    $sessionCookie = array('lifetime' => $lifeTime, 'path' => '/', 'httponly' => true, 'samesite' => 'Lax');
     session_set_cookie_params($sessionCookie);
     session_cache_limiter('no-cache');
 
