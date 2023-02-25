@@ -6,21 +6,15 @@ jobs:
   auto-minify:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Minify
-        uses: nizarmah/auto-minify@v2.1.1
+      - uses: actions/checkout@v2
+      - uses: nizarmah/auto-minify@v1.0.0
         with:
           directory: '.'
           output: 'production'
-
       - name: Commit files
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add production/*
-          git commit -m "Auto Minify" || echo "Minify"
+          git commit -m "Auto Minify" || echo "No changes to commit"
           git push origin production
