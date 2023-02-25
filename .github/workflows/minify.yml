@@ -1,32 +1,26 @@
-name: Minify Workflow
+name: Auto Minify
 on:
   push:
-    branches: main
-
+    branches: [ main ]
 jobs:
-  build:
+  auto-minify:
     runs-on: ubuntu-latest
-      
     steps:
-        # Checks-out your repository under $GITHUB_WORKSPACE, so auto-minify job can access it
-        - name: Checkout
-          uses: actions/checkout@v2
-          with:
-            ref: ${{ github.ref }}
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
 
-        - name: Auto Minify
-          uses: nizarmah/auto-minify@v2.1.1
-          with:
-            overwrite: true
+      - name: Minify
+        uses: nizarmah/auto-minify@v2.1.1
+        with:
+          directory: '.'
+          output: 'production'
 
-        - name: Delete old production branch
-          uses: dawidd6/action-delete-branch@v3.1.0
-          with:
-            branches: production
-
-        - name: Commit
-          uses: stefanzweifel/git-auto-commit-action@v4
-          with:
-            commit_message: "Github Action: Auto Minified JS and CSS files"
-            branch: production
-            create_branch: true
+      - name: Commit files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add production/*
+          git commit -m "Auto Minify" || echo "Minify"
+          git push origin production
