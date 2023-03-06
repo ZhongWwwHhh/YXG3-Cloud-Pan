@@ -33,7 +33,7 @@
         <form class="hide" action="none">
             <input type="file" id="inputfile">
         </form>
-        <h2 id="uploadinfor">Upload</h2>
+        <h2 id="uploadinfor">上传</h2>
     </div>
 
     <script>
@@ -55,7 +55,7 @@
                     if (typeof (htmlInputFile.files[0]) != 'undefined') {
                         if (htmlInputFile.files[0]) {
                             htmlDivUpload.onclick = null;
-                            document.getElementById("uploadinfor").innerHTML = 'Uploading<br>Slow';
+                            document.getElementById("uploadinfor").innerHTML = '正在上传<br>请稍等';
                             upload();
                         }
                     }
@@ -68,12 +68,22 @@
             htmlInputFile.files = null;
             totalblobnum = Math.ceil(file.size / sliceSize);
 
+            // file should be less than 200M
+            if (totalblobnum > 200) {
+                document.getElementById("uploadinfor").innerHTML = '文件太大<br>点击重选上传';
+                // can choose other
+                htmlDivUpload.onclick = function () {
+                    document.getElementById("inputfile").click();
+                };
+                return;
+            }
+
             // file name and extension
             fileExt = file.name.substring(file.name.lastIndexOf("."));
             fileName = file.name.substring(0, file.name.lastIndexOf("."));
 
             if (fileExt.length > 10) {
-                document.getElementById("uploadinfor").innerHTML = 'The file extension is too long<br>Choose another';
+                document.getElementById("uploadinfor").innerHTML = '文件扩展名过长<br>点击重选上传';
                 return;
             } else {
                 if (!(fileName.length + fileExt.length <= 25)) {
@@ -117,12 +127,12 @@
                 if (this.readyState == 4 && this.status == 200) {
                     if (this.responseText == "continue") {
                         // show progress
-                        document.getElementById("uploadinfor").innerHTML = Math.ceil(star * 1000 / file.size) / 10 + '%<br>Uploading';
+                        document.getElementById("uploadinfor").innerHTML = Math.ceil(star * 1000 / file.size) / 10 + '%<br>正在上传';
                         setTimeout(function () { updata(++index) }, 200);
                     }
                     if (this.responseText == 'success') {
                         // upload success finish
-                        document.getElementById("uploadinfor").innerHTML = 'Success<br>Upload';
+                        document.getElementById("uploadinfor").innerHTML = '成功<br>点击上传下一个';
                         // can choose other
                         htmlDivUpload.onclick = function () {
                             document.getElementById("inputfile").click();
@@ -131,7 +141,7 @@
                     }
                     if (this.responseText == 'bad' || this.responseText == 'fail') {
                         // upload problem
-                        document.getElementById("uploadinfor").innerHTML = 'Fail<br>Please retry';
+                        document.getElementById("uploadinfor").innerHTML = '失败<br>点击重新选择上传';
                         // can choose other
                         htmlDivUpload.onclick = function () {
                             document.getElementById("inputfile").click();
