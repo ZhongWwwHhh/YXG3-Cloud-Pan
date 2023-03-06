@@ -69,19 +69,20 @@
     <h1>Welcome</h1>
     <p>There is Void Storage</p>
     <iframe src="/loading/loading.html"></iframe>
+
+    <script>
+        // auto dark mode
+        const html = document.querySelector('html');
+        let currdate = new Date();
+        if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
+            html.classList.add('day');
+        } else {
+            html.classList.add('night');
+        }
+    </script>
+
+    <script async defer src="https://analytics.umami.is/script.js"
+        data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
 </body>
-
-<script>
-    // auto dark mode
-    const html = document.querySelector('html');
-    let currdate = new Date();
-    if (currdate.getHours() >= 6 && currdate.getHours() < 18) {
-        html.classList.add('day');
-    } else {
-        html.classList.add('night');
-    }
-</script>
-
-<script async defer src="https://analytics.umami.is/script.js" data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
 
 </html>

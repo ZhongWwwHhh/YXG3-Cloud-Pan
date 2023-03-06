@@ -35,125 +35,125 @@
         </form>
         <h2 id="uploadinfor">Upload</h2>
     </div>
-</body>
 
-<script>
-    // upload btn
-    let htmlDivUpload = document.getElementById('upload');
-    let htmlInputFile = document.getElementById("inputfile");
+    <script>
+        // upload btn
+        let htmlDivUpload = document.getElementById('upload');
+        let htmlInputFile = document.getElementById("inputfile");
 
-    // upload setting
-    let sliceSize = (1024 * 1024) * 1; //分片大小
-    let boolName;
-    let file;
-    let totalblobnum;
-    let fileName;
-    let fileExt;
+        // upload setting
+        let sliceSize = (1024 * 1024) * 1; //分片大小
+        let boolName;
+        let file;
+        let totalblobnum;
+        let fileName;
+        let fileExt;
 
-    function getInputFile() {
-        if (typeof (htmlInputFile.files) != 'undefined') {
-            if (htmlInputFile.files) {
-                if (typeof (htmlInputFile.files[0]) != 'undefined') {
-                    if (htmlInputFile.files[0]) {
-                        htmlDivUpload.onclick = null;
-                        document.getElementById("uploadinfor").innerHTML = 'Uploading<br>Slow';
-                        upload();
+        function getInputFile() {
+            if (typeof (htmlInputFile.files) != 'undefined') {
+                if (htmlInputFile.files) {
+                    if (typeof (htmlInputFile.files[0]) != 'undefined') {
+                        if (htmlInputFile.files[0]) {
+                            htmlDivUpload.onclick = null;
+                            document.getElementById("uploadinfor").innerHTML = 'Uploading<br>Slow';
+                            upload();
+                        }
                     }
                 }
             }
         }
-    }
 
-    function upload() {
-        file = htmlInputFile.files[0]; //获取inputfile
-        htmlInputFile.files = null;
-        totalblobnum = Math.ceil(file.size / sliceSize);
+        function upload() {
+            file = htmlInputFile.files[0]; //获取inputfile
+            htmlInputFile.files = null;
+            totalblobnum = Math.ceil(file.size / sliceSize);
 
-        // file name and extension
-        fileExt = file.name.substring(file.name.lastIndexOf("."));
-        fileName = file.name.substring(0, file.name.lastIndexOf("."));
+            // file name and extension
+            fileExt = file.name.substring(file.name.lastIndexOf("."));
+            fileName = file.name.substring(0, file.name.lastIndexOf("."));
 
-        if (fileExt.length > 10) {
-            document.getElementById("uploadinfor").innerHTML = 'The file extension is too long<br>Choose another';
-            return;
-        } else {
-            if (!(fileName.length + fileExt.length <= 25)) {
-                let needNameLength = 25 - fileExt.length;
-                fileName = fileName.substr(0, needNameLength);
-            }
-        }
-
-        boolName = fileName + fileExt;
-        updata(0);
-    }
-
-    // upload
-    function updata(index) {
-        let xmt = new XMLHttpRequest();
-
-        // slice start
-        let star = index * sliceSize;
-
-        // already send finish
-        if (star > file.size) {
-            return;
-        }
-
-        let bool = file.slice(star, star + sliceSize);
-        let boolfile = new Blob([bool]);
-
-        // POST content
-        let from = new FormData();
-        from.append("fileupload", boolfile);
-        from.append('filename', boolName);
-        from.append('blobnum', index + 1);
-        from.append('totalblobnum', totalblobnum);
-
-        // send POST
-        xmt.open("POST", "/api/file/upload.php", true)
-        xmt.send(from)
-
-        // receive
-        xmt.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                if (this.responseText == "continue") {
-                    // show progress
-                    document.getElementById("uploadinfor").innerHTML = Math.ceil(star * 1000 / file.size) / 10 + '%<br>Uploading';
-                    setTimeout(function () { updata(++index) }, 200);
-                }
-                if (this.responseText == 'success') {
-                    // upload success finish
-                    document.getElementById("uploadinfor").innerHTML = 'Success<br>Upload';
-                    // can choose other
-                    htmlDivUpload.onclick = function () {
-                        document.getElementById("inputfile").click();
-                    };
-                    top.getFileList();
-                }
-                if (this.responseText == 'bad' || this.responseText == 'fail') {
-                    // upload problem
-                    document.getElementById("uploadinfor").innerHTML = 'Fail<br>Please retry';
-                    // can choose other
-                    htmlDivUpload.onclick = function () {
-                        document.getElementById("inputfile").click();
-                    };
+            if (fileExt.length > 10) {
+                document.getElementById("uploadinfor").innerHTML = 'The file extension is too long<br>Choose another';
+                return;
+            } else {
+                if (!(fileName.length + fileExt.length <= 25)) {
+                    let needNameLength = 25 - fileExt.length;
+                    fileName = fileName.substr(0, needNameLength);
                 }
             }
-        };
-    }
 
-    window.onload = function () {
-        if (sessionStorage.write != 'true' && sessionStorage.write != true) {
-            document.getElementById("uploadinfor").innerHTML = 'No permission';
+            boolName = fileName + fileExt;
+            updata(0);
         }
-        htmlDivUpload.onclick = function () {
-            document.getElementById("inputfile").click();
-        };
-        htmlInputFile.onchange = getInputFile;
-    }
-</script>
 
-<script async defer src="https://analytics.umami.is/script.js"
-    data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
+        // upload
+        function updata(index) {
+            let xmt = new XMLHttpRequest();
+
+            // slice start
+            let star = index * sliceSize;
+
+            // already send finish
+            if (star > file.size) {
+                return;
+            }
+
+            let bool = file.slice(star, star + sliceSize);
+            let boolfile = new Blob([bool]);
+
+            // POST content
+            let from = new FormData();
+            from.append("fileupload", boolfile);
+            from.append('filename', boolName);
+            from.append('blobnum', index + 1);
+            from.append('totalblobnum', totalblobnum);
+
+            // send POST
+            xmt.open("POST", "/api/file/upload.php", true)
+            xmt.send(from)
+
+            // receive
+            xmt.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    if (this.responseText == "continue") {
+                        // show progress
+                        document.getElementById("uploadinfor").innerHTML = Math.ceil(star * 1000 / file.size) / 10 + '%<br>Uploading';
+                        setTimeout(function () { updata(++index) }, 200);
+                    }
+                    if (this.responseText == 'success') {
+                        // upload success finish
+                        document.getElementById("uploadinfor").innerHTML = 'Success<br>Upload';
+                        // can choose other
+                        htmlDivUpload.onclick = function () {
+                            document.getElementById("inputfile").click();
+                        };
+                        top.getFileList();
+                    }
+                    if (this.responseText == 'bad' || this.responseText == 'fail') {
+                        // upload problem
+                        document.getElementById("uploadinfor").innerHTML = 'Fail<br>Please retry';
+                        // can choose other
+                        htmlDivUpload.onclick = function () {
+                            document.getElementById("inputfile").click();
+                        };
+                    }
+                }
+            };
+        }
+
+        window.onload = function () {
+            if (sessionStorage.write != 'true' && sessionStorage.write != true) {
+                document.getElementById("uploadinfor").innerHTML = 'No permission';
+            }
+            htmlDivUpload.onclick = function () {
+                document.getElementById("inputfile").click();
+            };
+            htmlInputFile.onchange = getInputFile;
+        }
+    </script>
+
+    <script async defer src="https://analytics.umami.is/script.js"
+        data-website-id="96af1f91-0871-4ee8-a50c-5070f8ce57bb"></script>
+</body>
 
 </html>
