@@ -15,6 +15,15 @@ if (!isset($_SESSION['uuid'], $_SESSION['newlightname'])) {
 <html lang="zh-cn">
 
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://analytic.yxg3.xyz/gtag/js?id=G-LLDT40W1YJ"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        
+        gtag('config', 'G-LLDT40W1YJ');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register Success</title>
