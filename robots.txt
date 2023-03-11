@@ -1,17 +1,16 @@
 # robots.txt
 User-agent: Googlebot
-Disallow: 
+Allow: / 
+User-agent: Mediapartners-Google
+Allow: / 
 User-agent: MSNBot
-Disallow: 
+Allow: / 
 User-agent: Bingbot
-Disallow: 
+Allow: / 
 User-agent: Slurp
-Disallow: 
+Allow: / 
 User-agent: baiduspider
-Disallow: 
+Allow: / 
+
 User-agent: *
 Disallow: /
-Disallow: /api
-Disallow: /register
-Disallow: /dash
-Disallow: /loading
