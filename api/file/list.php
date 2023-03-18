@@ -26,11 +26,30 @@ if (checkStr($filepath)) {
                 $return[] = $value;
             }
         }
+
+        if (count($return) > 20) {
+            $returnDelete = array_slice($return, 20);
+            $return = array_slice($return, 0, 20);
+        }
+
         $return['success'] = 'success';
         echo json_encode($return);
+
+        set_time_limit(20);
+        ignore_user_abort(true);
+        ob_end_flush();
+        flush();
+
+        if (isset($returnDelete)) {
+            foreach ($returnDelete as $file) {
+                unlink('../../../storage/' . $filepath . '/' . $file);
+            }
+        }
     } else {
         fail();
     }
 } else {
     fail();
 }
+
+exit;
