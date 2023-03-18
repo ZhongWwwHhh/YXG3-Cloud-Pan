@@ -6,9 +6,9 @@
     <script async src="https://analytic.yxg3.xyz/gtag/js?id=G-LLDT40W1YJ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
-        
+
         gtag('config', 'G-LLDT40W1YJ');
     </script>
     <meta charset="UTF-8">
@@ -93,6 +93,10 @@
 
             if (fileExt.length > 10) {
                 document.getElementById("uploadinfor").innerHTML = '文件扩展名过长<br>点击重选上传';
+                // can choose other
+                htmlDivUpload.onclick = function () {
+                    document.getElementById("inputfile").click();
+                };
                 return;
             } else {
                 if (!(fileName.length + fileExt.length <= 25)) {
