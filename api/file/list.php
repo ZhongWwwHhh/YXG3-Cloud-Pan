@@ -28,8 +28,8 @@ if (checkStr($filepath)) {
         }
 
         if (count($return) > 20) {
-            $returnDelete = array_slice($return, 20);
-            $return = array_slice($return, 0, 20);
+            $returnDelete = array_slice($return, 0, -20);
+            $return = array_slice($return, -20);
         }
 
         $return['success'] = 'success';
